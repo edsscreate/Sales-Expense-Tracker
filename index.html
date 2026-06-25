@@ -186,7 +186,7 @@
           <div class="formGrid">
             <div class="field full">
               <label>Tracker / Business Display Name</label>
-              <input id="trackerNameInput" maxlength="60" placeholder="e.g. Bella's Online Shop">
+              <input id="trackerNameInput" maxlength="60" placeholder="e.g. Edralene's Online Shop">
             </div>
             <div class="field full">
               <label>Subtitle / Description</label>
@@ -203,7 +203,7 @@
           <div class="field">
             <label>Add New Business</label>
             <div class="manageRow">
-              <input id="newBusinessInput" maxlength="60" placeholder="e.g. Bella's Cakes">
+              <input id="newBusinessInput" maxlength="60" placeholder="e.g. Edralene's Cakes">
               <button class="btn green" type="button" onclick="addBusiness()">Add</button>
             </div>
           </div>
@@ -488,7 +488,7 @@
 
     function opts(arr, includeBlank=false){return (includeBlank?'<option value="">Select...</option>':'')+arr.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
     function businessField(){
-      return `<div class="field"><label>Business</label><select name="business" id="recordBusiness" onchange="handleBusinessSelection(this)" required>${businessSelectOptions()}</select><span class="quickAddHint">Choose “＋ Add another business…” to add one instantly.</span></div><div class="field full hidden" id="quickBusinessField"><label>New Business Name</label><div class="manageRow"><input id="quickBusinessName" maxlength="60" placeholder="e.g. Bella's Cakes"><button class="btn green" type="button" onclick="addBusinessFromModal()">Add & Select</button></div></div>`;
+      return `<div class="field"><label>Business</label><select name="business" id="recordBusiness" onchange="handleBusinessSelection(this)" required>${businessSelectOptions()}</select><span class="quickAddHint">Choose “＋ Add another business…” to add one instantly.</span></div><div class="field full hidden" id="quickBusinessField"><label>New Business Name</label><div class="manageRow"><input id="quickBusinessName" maxlength="60" placeholder="e.g. Edralene's Cakes"><button class="btn green" type="button" onclick="addBusinessFromModal()">Add & Select</button></div></div>`;
     }
     function openModal(type){
       const modal=document.getElementById('modal'), title=document.getElementById('modalTitle'), form=document.getElementById('entryForm');
