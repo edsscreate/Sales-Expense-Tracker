@@ -36,7 +36,7 @@
     .tab{border:0;border-radius:999px;background:white;color:var(--muted);padding:10px 16px;white-space:nowrap;box-shadow:0 3px 10px rgba(39,78,52,.08);cursor:pointer}
     .tab.active{background:var(--dark);color:white}
     .view{display:none;animation:fade .15s ease-in-out}.view.active{display:block}@keyframes fade{from{opacity:.6;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
     .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
     .kpi{min-height:112px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:linear-gradient(180deg,#d1ead9,#b8dbc4)}
     .kpi small{font-size:13px;color:#243e30}.kpi strong{font-size:clamp(24px,4vw,36px);margin-top:8px;color:#07180f}.kpi span{font-size:12px;color:var(--muted);margin-top:4px}
@@ -45,9 +45,9 @@
     .bars{display:grid;gap:12px}.barRow{display:grid;grid-template-columns:96px 1fr 88px;gap:10px;align-items:center;font-size:13px}.track{height:24px;border-radius:999px;background:#eef6f1;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#b6dec4,#65bf82);min-width:2px}.amount{text-align:right;font-weight:800}
     .tableWrap{overflow:auto;border-radius:14px;border:1px solid var(--line)}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{background:#c7e4d0;color:#142e20;position:sticky;top:0}tr:last-child td{border-bottom:0}.right{text-align:right}.pill{display:inline-flex;padding:4px 9px;border-radius:999px;background:#edf6ef;color:#477a58;font-weight:700;font-size:12px}.pill.danger{background:#fff0f0;color:var(--danger)}.pill.warn{background:#fff7e8;color:var(--warning)}
     .formGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:800;color:#43604e}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;background:white;padding:12px;color:var(--dark);outline:none}textarea{min-height:92px;resize:vertical}.btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:900;cursor:pointer;background:var(--dark);color:white}.btn.secondary{background:white;color:var(--dark);border:1px solid var(--line)}.btn.green{background:var(--green2)}.btn.red{background:var(--danger)}.btn.blue{background:var(--blue)}.btn:active{transform:scale(.99)}
-    .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.quick button{background:white;border:1px solid var(--line);border-radius:16px;padding:16px 12px;text-align:left;box-shadow:var(--shadow);cursor:pointer;color:var(--dark)}.quick b{display:block;font-size:15px;margin-bottom:3px}.quick span{font-size:12px;color:var(--muted)}
+    .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}.quick button{background:white;border:1px solid var(--line);border-radius:16px;padding:16px 12px;text-align:left;box-shadow:var(--shadow);cursor:pointer;color:var(--dark)}.quick b{display:block;font-size:15px;margin-bottom:3px}.quick span{font-size:12px;color:var(--muted)}
     .empty{padding:26px;text-align:center;color:var(--muted);background:white;border-radius:14px;border:1px dashed var(--line)}
-    .bottomNav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,0,0,.14);border-radius:24px;padding:8px;display:none;grid-template-columns:repeat(6,1fr);gap:5px;z-index:60}.bottomNav button{border:0;background:transparent;border-radius:17px;padding:9px 5px;color:var(--muted);font-size:11px;font-weight:800}.bottomNav button.active{background:#e5f5ea;color:var(--dark)}.bottomNav .ico{font-size:18px;display:block;margin-bottom:2px}.modal{position:fixed;inset:0;background:rgba(8,27,14,.45);display:none;place-items:end center;z-index:100;padding:14px}.modal.show{display:grid}.sheet{background:var(--panel);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.25);width:min(760px,100%);max-height:88vh;overflow:auto;padding:18px}.sheetHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.sheetHead h2{margin:0;font-size:20px}.close{border:0;background:#eef6f1;border-radius:12px;width:40px;height:40px;font-size:24px;color:var(--dark)}
+    .bottomNav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,0,0,.14);border-radius:24px;padding:8px;display:none;grid-template-columns:repeat(5,1fr);gap:5px;z-index:60}.bottomNav button{border:0;background:transparent;border-radius:17px;padding:9px 5px;color:var(--muted);font-size:11px;font-weight:800}.bottomNav button.active{background:#e5f5ea;color:var(--dark)}.bottomNav .ico{font-size:18px;display:block;margin-bottom:2px}.modal{position:fixed;inset:0;background:rgba(8,27,14,.45);display:none;place-items:end center;z-index:100;padding:14px}.modal.show{display:grid}.sheet{background:var(--panel);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.25);width:min(760px,100%);max-height:88vh;overflow:auto;padding:18px}.sheetHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.sheetHead h2{margin:0;font-size:20px}.close{border:0;background:#eef6f1;border-radius:12px;width:40px;height:40px;font-size:24px;color:var(--dark)}
     .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);background:var(--dark);color:white;border-radius:999px;padding:11px 16px;opacity:0;pointer-events:none;transition:.2s;z-index:200}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .split{display:grid;grid-template-columns:260px 1fr;gap:12px}.sidePanel{background:#bddfc8;border-radius:var(--radius);padding:14px;border:1px solid #a8d1b5}.filterGroup{display:grid;gap:12px}.filterLabel{font-weight:900;margin-top:8px}.statLine{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.55)}.statLine:last-child{border-bottom:0}.miniNote{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.dangerText{color:var(--danger);font-weight:900}.positive{color:#25814b;font-weight:900}.manageList{display:grid;gap:9px;margin-top:12px;max-height:270px;overflow:auto;padding-right:3px}.manageRow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.manageRow .btn{padding:10px 12px}.quickAddHint{display:block;margin-top:7px;font-size:11px;color:var(--muted);line-height:1.4}.settingNote{background:#eef8f1;border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:12px;color:#43604e;line-height:1.45}
     @media(max-width:900px){.split{grid-template-columns:1fr}.sidePanel{order:2}.grid{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.formGrid{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.bottomNav{display:grid}.tabs{display:none}header{position:relative}.monthBox{width:100%;justify-content:flex-start}.app{padding:14px}}
@@ -122,7 +122,6 @@
       <button class="tab" data-view="salesView">Sales</button>
       <button class="tab" data-view="expensesView">Expenses</button>
       <button class="tab" data-view="banksView">Banks</button>
-      <button class="tab" data-view="receivablesView">Receivables</button>
       <button class="tab" data-view="settingsView">Settings</button>
     </nav>
 
@@ -158,14 +157,12 @@
             <div class="card kpi"><small>Total Sales</small><strong id="kpiSales">₱0</strong><span>Selected range/business</span></div>
             <div class="card kpi"><small>Total Expenses</small><strong id="kpiExpenses">₱0</strong><span>All recorded costs</span></div>
             <div class="card kpi"><small>Net Profit</small><strong id="kpiNet">₱0</strong><span>Sales minus expenses</span></div>
-            <div class="card kpi"><small>Receivables</small><strong id="kpiReceivables">₱0</strong><span>Unpaid collectibles</span></div>
           </div>
 
           <div class="quick">
             <button onclick="openModal('sales')"><b>+ Add Sales</b><span>Order / payment received</span></button>
             <button onclick="openModal('expense')"><b>+ Add Expense</b><span>Materials, shipping, ads</span></button>
             <button onclick="openModal('bank')"><b>+ Bank Movement</b><span>Deposit / transfer</span></button>
-            <button onclick="openModal('receivable')"><b>+ Receivable</b><span>Unpaid order / balance</span></button>
           </div>
 
           <div class="two">
@@ -239,46 +236,20 @@
       </div>
     </section>
 
-    <section class="view" id="receivablesView">
-      <div class="card">
-        <div class="sheetHead"><h2>Receivables / Collectibles</h2><button class="btn green" onclick="openModal('receivable')">+ Receivable</button></div>
-        <div class="tableWrap recordTableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Due Date</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="receivableRows"></tbody></table></div><div class="mobileRecordList" id="receivableMobileRows"></div>
-      </div>
-    </section>
-
     <section class="view" id="settingsView">
-      <div class="two">
-        <div class="card">
-          <h2 style="margin-top:0">Customize Your Tracker</h2>
-          <p class="miniNote">Palitan ito bago i-offer sa client para sariling pangalan nila ang makikita sa dashboard.</p>
-          <div class="formGrid">
-            <div class="field full">
-              <label>Tracker / Business Display Name</label>
-              <input id="trackerNameInput" maxlength="60" placeholder="e.g. Edralene's Online Shop">
-            </div>
-            <div class="field full">
-              <label>Subtitle / Description</label>
-              <textarea id="trackerSubtitleInput" maxlength="140" placeholder="e.g. Sales, expenses, and cash flow tracker"></textarea>
-            </div>
-          </div>
-          <div class="btnRow">
-            <button class="btn green" type="button" onclick="saveBrandSettings()">Save Display Name</button>
+      <div class="card">
+        <h2 style="margin-top:0">Business Names</h2>
+        <p class="miniNote">Add, rename, or remove the businesses shown in the sales and expense forms. You can add as many businesses as needed.</p>
+        <div class="field">
+          <label>Add New Business</label>
+          <div class="manageRow">
+            <input id="newBusinessInput" maxlength="60" placeholder="e.g. Edralene's Cakes">
+            <button class="btn green" type="button" onclick="addBusiness()">Add</button>
           </div>
         </div>
-        <div class="card">
-          <h2 style="margin-top:0">Business Names</h2>
-          <p class="miniNote">Add, rename, or remove the businesses shown in the sales and expense forms. You can add as many businesses as needed.</p>
-          <div class="field">
-            <label>Add New Business</label>
-            <div class="manageRow">
-              <input id="newBusinessInput" maxlength="60" placeholder="e.g. Edralene's Cakes">
-              <button class="btn green" type="button" onclick="addBusiness()">Add</button>
-            </div>
-          </div>
-          <div id="businessSettingsList" class="manageList"></div>
-          <div class="btnRow">
-            <button class="btn secondary" type="button" onclick="saveBusinessNames()">Save Name Changes</button>
-          </div>
+        <div id="businessSettingsList" class="manageList"></div>
+        <div class="btnRow">
+          <button class="btn secondary" type="button" onclick="saveBusinessNames()">Save Name Changes</button>
         </div>
       </div>
 
@@ -306,7 +277,7 @@
 
       <div class="card" style="margin-top:12px">
         <h2 style="margin-top:0">Recommended Tracking</h2>
-        <div class="tableWrap"><table><thead><tr><th>Tracker</th><th>Purpose</th></tr></thead><tbody><tr><td>Monthly Target</td><td>Para makita kung ilang percent na ang naabot per business.</td></tr><tr><td>COGS / Materials</td><td>Paper, ink, packaging, props, at supplies.</td></tr><tr><td>Receivables</td><td>Mga unpaid orders or client balance.</td></tr><tr><td>Bank Allocation</td><td>Para alam kung nasa bank, cash, GCash, o Maya ang pera.</td></tr><tr><td>Ads Spend</td><td>Para makita kung sulit ang FB ads or boosting.</td></tr><tr><td>Tax / Savings Reserve</td><td>Automatic allocation para sa future payments.</td></tr></tbody></table></div>
+        <div class="tableWrap"><table><thead><tr><th>Tracker</th><th>Purpose</th></tr></thead><tbody><tr><td>Monthly Target</td><td>Para makita kung ilang percent na ang naabot per business.</td></tr><tr><td>COGS / Materials</td><td>Paper, ink, packaging, props, at supplies.</td></tr><tr><td>Bank Allocation</td><td>Para alam kung nasa bank, cash, GCash, o Maya ang pera.</td></tr><tr><td>Ads Spend</td><td>Para makita kung sulit ang FB ads or boosting.</td></tr><tr><td>Tax / Savings Reserve</td><td>Automatic allocation para sa future payments.</td></tr></tbody></table></div>
       </div>
     </section>
   </div>
@@ -316,7 +287,6 @@
     <button data-view="salesView"><span class="ico">💰</span>Sales</button>
     <button data-view="expensesView"><span class="ico">🧾</span>Expenses</button>
     <button data-view="banksView"><span class="ico">🏦</span>Banks</button>
-    <button data-view="receivablesView"><span class="ico">📌</span>Collect</button>
     <button data-view="settingsView"><span class="ico">⚙️</span>Setup</button>
   </nav>
 
@@ -330,7 +300,7 @@
 
   <script>
     const KEY='erbSalesExpenseTracker_v1';
-    const DEFAULT_SETTINGS={
+    const FIXED_BRAND={
       trackerName:'Sales & Expense Tracker',
       subtitle:'by Edss Create'
     };
@@ -347,13 +317,11 @@
 
     function seed(){
       return {
-        settings:{...DEFAULT_SETTINGS},
         businesses:['My Business'],
         accounts:['Cash','GCash','Maya','Bank Account'],
         sales:[],
         expenses:[],
         banks:[],
-        receivables:[]
       };
     }
     function normalizeData(saved){
@@ -362,13 +330,11 @@
       return {
         ...base,
         ...saved,
-        settings:{...DEFAULT_SETTINGS,...(saved.settings||{})},
         businesses:Array.isArray(saved.businesses)&&saved.businesses.length ? saved.businesses : base.businesses,
         accounts:Array.isArray(saved.accounts)&&saved.accounts.length ? saved.accounts : base.accounts,
         sales:Array.isArray(saved.sales) ? saved.sales : [],
         expenses:Array.isArray(saved.expenses) ? saved.expenses : [],
-        banks:Array.isArray(saved.banks) ? saved.banks : [],
-        receivables:Array.isArray(saved.receivables) ? saved.receivables : []
+        banks:Array.isArray(saved.banks) ? saved.banks : []
       };
     }
     function loadData(){
@@ -515,12 +481,11 @@
     function render(){
       renderBrand();
       renderFilters();
-      const sales=byFilters(data.sales), expenses=byFilters(data.expenses), recs=byFilters(data.receivables).filter(r=>r.status!=='Paid');
-      const totalSales=sum(sales), totalExpenses=sum(expenses), net=totalSales-totalExpenses, rec=sum(recs);
+      const sales=byFilters(data.sales), expenses=byFilters(data.expenses);
+      const totalSales=sum(sales), totalExpenses=sum(expenses), net=totalSales-totalExpenses;
       ['kpiSales','sideSales'].forEach(id=>document.getElementById(id).textContent=pesos(totalSales));
       ['kpiExpenses','sideExpenses'].forEach(id=>document.getElementById(id).textContent=pesos(totalExpenses));
       ['kpiNet','sideNet'].forEach(id=>{const el=document.getElementById(id);el.textContent=pesos(net);el.className=net<0?'dangerText':'positive'});
-      document.getElementById('kpiReceivables').textContent=pesos(rec);
       renderBars('salesBars',groupSum(sales,'business'));
       renderBars('expenseBars',groupSum(expenses,'category'));
       renderTables();
@@ -530,29 +495,15 @@
     }
 
     function renderBrand(){
-      const settings={...DEFAULT_SETTINGS,...(data.settings||{})};
-      document.getElementById('brandTitle').textContent=settings.trackerName;
-      document.getElementById('brandSubtitle').textContent=settings.subtitle;
-      document.title=settings.trackerName + ' | Sales & Expense Tracker';
+      document.getElementById('brandTitle').textContent=FIXED_BRAND.trackerName;
+      document.getElementById('brandSubtitle').textContent=FIXED_BRAND.subtitle;
+      document.title=FIXED_BRAND.trackerName;
     }
 
     function renderSettings(){
-      const settings={...DEFAULT_SETTINGS,...(data.settings||{})};
-      const nameInput=document.getElementById('trackerNameInput');
-      const subtitleInput=document.getElementById('trackerSubtitleInput');
-      if(nameInput && document.activeElement!==nameInput) nameInput.value=settings.trackerName;
-      if(subtitleInput && document.activeElement!==subtitleInput) subtitleInput.value=settings.subtitle;
       const list=document.getElementById('businessSettingsList');
       if(!list) return;
       list.innerHTML=data.businesses.map(name=>`<div class="manageRow"><input class="businessNameInput" data-original="${esc(name)}" value="${esc(name)}" maxlength="60" aria-label="Business name"><button class="btn red" type="button" data-name="${esc(name)}" onclick="removeBusiness(this.dataset.name)">Remove</button></div>`).join('') || '<div class="settingNote">Add at least one business to use the forms.</div>';
-    }
-
-    function saveBrandSettings(){
-      const trackerName=document.getElementById('trackerNameInput').value.trim() || DEFAULT_SETTINGS.trackerName;
-      const subtitle=document.getElementById('trackerSubtitleInput').value.trim() || DEFAULT_SETTINGS.subtitle;
-      data.settings={...DEFAULT_SETTINGS,...(data.settings||{}),trackerName,subtitle};
-      save();
-      toast('Display name saved!');
     }
 
     function addBusinessName(name){
@@ -616,7 +567,6 @@
       changes.forEach(({original,name})=>{
         data.sales.forEach(record=>{if(record.business===original) record.business=name;});
         data.expenses.forEach(record=>{if(record.business===original) record.business=name;});
-        data.receivables.forEach(record=>{if(record.business===original) record.business=name;});
         if(filters.business===original) filters.business=name;
       });
       data.businesses=unique;
@@ -626,7 +576,7 @@
 
     function removeBusiness(name){
       if(data.businesses.length===1){toast('Keep at least one business.');return;}
-      const hasRecords=[...data.sales,...data.expenses,...data.receivables].some(record=>record.business===name);
+      const hasRecords=[...data.sales,...data.expenses].some(record=>record.business===name);
       const message=hasRecords
         ? `Remove "${name}" from the business choices? Existing records will remain visible under All Businesses.`
         : `Remove "${name}" from the business choices?`;
@@ -664,10 +614,6 @@
       const banksMobile=data.banks.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.type||'Bank movement'),amount:pesos(r.amount),date:esc(r.date),meta:[r.from?`From ${esc(r.from)}`:'',r.to?`To ${esc(r.to)}`:''].filter(Boolean).join(' · '),tags:[],footer:`<span></span><button class="btn secondary" onclick="del('banks','${r.id}')">Delete</button>`})).join('');
       document.getElementById('bankMobileRows').innerHTML=banksMobile||emptyMobileCard('No bank transactions yet.');
 
-      const recRows=data.receivables.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.customer||'-'}</td><td>${r.dueDate||'-'}</td><td><span class="pill ${r.status==='Overdue'?'danger':r.status==='Partial'?'warn':''}">${r.status}</span></td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="markPaid('${r.id}')">Paid</button> <button class="btn secondary" onclick="del('receivables','${r.id}')">Delete</button></td></tr>`).join('');
-      document.getElementById('receivableRows').innerHTML=recRows||'<tr><td colspan="7"><div class="empty">No receivables yet.</div></td></tr>';
-      const receivablesMobile=data.receivables.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.customer||'Receivable'),amount:pesos(r.amount),date:esc(r.date),meta:esc(r.business||'-'),tags:[r.dueDate?`Due: ${esc(r.dueDate)}`:'',r.status?esc(r.status):''],amountClass:r.status==='Overdue'?'dangerText':'',footer:`<button class="btn secondary" onclick="markPaid('${r.id}')">Mark paid</button><button class="btn secondary" onclick="del('receivables','${r.id}')">Delete</button>`})).join('');
-      document.getElementById('receivableMobileRows').innerHTML=receivablesMobile||emptyMobileCard('No receivables yet.');
 
       const all=byFilters([...data.sales.map(x=>({...x,type:'Sales'})),...data.expenses.map(x=>({...x,type:'Expense',amount:-Number(x.amount||0)}))]).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
       document.getElementById('recentRows').innerHTML=all.map(r=>`<tr><td>${r.date}</td><td>${r.type}</td><td>${r.business}</td><td class="right"><b class="${r.amount<0?'dangerText':'positive'}">${pesos(r.amount)}</b></td></tr>`).join('')||'<tr><td colspan="4"><div class="empty">No activity yet.</div></td></tr>';
@@ -703,17 +649,11 @@
         form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Type</label><select name="type"><option>Deposit</option><option>Withdrawal</option><option>Transfer</option></select></div><div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>From</label><select name="from">${acc}</select></div><div class="field"><label>To</label><select name="to">${acc}</select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Transaction</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
         form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.banks.push({id:uid('B'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Bank transaction saved!');};
       }
-      if(type==='receivable'){
-        title.textContent='Add Receivable';
-        form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div>${biz}<div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>Customer</label><input name="customer" placeholder="Client name"></div><div class="field"><label>Due Date</label><input name="dueDate" type="date"></div><div class="field"><label>Status</label><select name="status"><option>Unpaid</option><option>Partial</option><option>Overdue</option><option>Paid</option></select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Receivable</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
-        form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.receivables.push({id:uid('R'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Receivable saved!');};
-      }
       modal.classList.add('show');
     }
     function closeModal(){document.getElementById('modal').classList.remove('show')}
     function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
     function del(bucket,id){ if(confirm('Delete this record?')){data[bucket]=data[bucket].filter(x=>x.id!==id);save();toast('Deleted');}}
-    function markPaid(id){ const r=data.receivables.find(x=>x.id===id); if(r){r.status='Paid';save();toast('Marked paid');}}
 
     function switchView(id){
       document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
