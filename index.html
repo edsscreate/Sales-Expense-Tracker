@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Sales & Expense Tracker</title>
+  <style>
+    :root{
+      --bg:#eaf7ee;
+      --panel:#f8fffb;
+      --panel2:#dbf1e4;
+      --green:#9fd3b1;
+      --green2:#77b58d;
+      --dark:#254433;
+      --muted:#6b7d70;
+      --line:#d7e9dc;
+      --danger:#e45d5d;
+      --warning:#d99a2b;
+      --blue:#4b8ccf;
+      --shadow:0 10px 24px rgba(39,78,52,.12);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);font-family:Inter,Arial,Helvetica,sans-serif;color:var(--dark)}
+    body{min-height:100vh;padding-bottom:90px}
+    .app{max-width:1180px;margin:0 auto;padding:18px}
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 75%,rgba(234,247,238,.78));z-index:20;padding:10px 0 12px;backdrop-filter:blur(8px)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#7fbd96,#d7f2df);display:grid;place-items:center;box-shadow:var(--shadow);font-size:23px;font-weight:900;color:white}
+    h1{font-size:clamp(20px,3vw,34px);line-height:1;margin:0;color:var(--green2);letter-spacing:.5px;text-transform:uppercase}
+    .monthBox{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+    select,input,textarea,button{font:inherit}
+    .monthBox select,.monthBox input{border:1px solid var(--line);border-radius:12px;background:white;padding:10px 12px;color:var(--dark);outline:none}
+    .tabs{display:flex;gap:8px;overflow:auto;padding:0 0 12px;scrollbar-width:none}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{border:0;border-radius:999px;background:white;color:var(--muted);padding:10px 16px;white-space:nowrap;box-shadow:0 3px 10px rgba(39,78,52,.08);cursor:pointer}
+    .tab.active{background:var(--dark);color:white}
+    .view{display:none;animation:fade .15s ease-in-out}.view.active{display:block}@keyframes fade{from{opacity:.6;transform:translateY(3px)}to{opacity:1;transform:translateY(0)}}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
+    .kpi{min-height:112px;display:flex;flex-direction:column;justify-content:center;text-align:center;background:linear-gradient(180deg,#d1ead9,#b8dbc4)}
+    .kpi small{font-size:13px;color:#243e30}.kpi strong{font-size:clamp(24px,4vw,36px);margin-top:8px;color:#07180f}.kpi span{font-size:12px;color:var(--muted);margin-top:4px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.three{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:12px}
+    .sectionTitle{margin:0 0 12px;font-size:17px}.sub{color:var(--muted);font-size:13px;margin-top:-6px;margin-bottom:12px}
+    .bars{display:grid;gap:12px}.barRow{display:grid;grid-template-columns:96px 1fr 88px;gap:10px;align-items:center;font-size:13px}.track{height:24px;border-radius:999px;background:#eef6f1;overflow:hidden}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#b6dec4,#65bf82);min-width:2px}.amount{text-align:right;font-weight:800}
+    .tableWrap{overflow:auto;border-radius:14px;border:1px solid var(--line)}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{background:#c7e4d0;color:#142e20;position:sticky;top:0}tr:last-child td{border-bottom:0}.right{text-align:right}.pill{display:inline-flex;padding:4px 9px;border-radius:999px;background:#edf6ef;color:#477a58;font-weight:700;font-size:12px}.pill.danger{background:#fff0f0;color:var(--danger)}.pill.warn{background:#fff7e8;color:var(--warning)}
+    .formGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font-size:12px;font-weight:800;color:#43604e}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:13px;background:white;padding:12px;color:var(--dark);outline:none}textarea{min-height:92px;resize:vertical}.btnRow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:900;cursor:pointer;background:var(--dark);color:white}.btn.secondary{background:white;color:var(--dark);border:1px solid var(--line)}.btn.green{background:var(--green2)}.btn.red{background:var(--danger)}.btn.blue{background:var(--blue)}.btn:active{transform:scale(.99)}
+    .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}.quick button{background:white;border:1px solid var(--line);border-radius:16px;padding:16px 12px;text-align:left;box-shadow:var(--shadow);cursor:pointer;color:var(--dark)}.quick b{display:block;font-size:15px;margin-bottom:3px}.quick span{font-size:12px;color:var(--muted)}
+    .empty{padding:26px;text-align:center;color:var(--muted);background:white;border-radius:14px;border:1px dashed var(--line)}
+    .bottomNav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100vw - 20px));background:#fff;border:1px solid var(--line);box-shadow:0 12px 34px rgba(0,0,0,.14);border-radius:24px;padding:8px;display:none;grid-template-columns:repeat(6,1fr);gap:5px;z-index:60}.bottomNav button{border:0;background:transparent;border-radius:17px;padding:9px 5px;color:var(--muted);font-size:11px;font-weight:800}.bottomNav button.active{background:#e5f5ea;color:var(--dark)}.bottomNav .ico{font-size:18px;display:block;margin-bottom:2px}.modal{position:fixed;inset:0;background:rgba(8,27,14,.45);display:none;place-items:end center;z-index:100;padding:14px}.modal.show{display:grid}.sheet{background:var(--panel);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.25);width:min(760px,100%);max-height:88vh;overflow:auto;padding:18px}.sheetHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.sheetHead h2{margin:0;font-size:20px}.close{border:0;background:#eef6f1;border-radius:12px;width:40px;height:40px;font-size:24px;color:var(--dark)}
+    .toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);background:var(--dark);color:white;border-radius:999px;padding:11px 16px;opacity:0;pointer-events:none;transition:.2s;z-index:200}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+    .split{display:grid;grid-template-columns:260px 1fr;gap:12px}.sidePanel{background:#bddfc8;border-radius:var(--radius);padding:14px;border:1px solid #a8d1b5}.filterGroup{display:grid;gap:12px}.filterLabel{font-weight:900;margin-top:8px}.statLine{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.55)}.statLine:last-child{border-bottom:0}.miniNote{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.dangerText{color:var(--danger);font-weight:900}.positive{color:#25814b;font-weight:900}.manageList{display:grid;gap:9px;margin-top:12px;max-height:270px;overflow:auto;padding-right:3px}.manageRow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.manageRow .btn{padding:10px 12px}.quickAddHint{display:block;margin-top:7px;font-size:11px;color:var(--muted);line-height:1.4}.settingNote{background:#eef8f1;border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:12px;color:#43604e;line-height:1.45}
+    @media(max-width:900px){.split{grid-template-columns:1fr}.sidePanel{order:2}.grid{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.formGrid{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.bottomNav{display:grid}.tabs{display:none}header{position:relative}.monthBox{width:100%;justify-content:flex-start}.app{padding:14px}}
+    @media(max-width:560px){body{padding-bottom:96px}.grid,.quick,.formGrid{grid-template-columns:1fr}.barRow{grid-template-columns:88px 1fr 76px}.card{padding:14px}.kpi{min-height:94px}th,td{padding:9px 8px;font-size:12px}.brand{align-items:flex-start}.logo{width:42px;height:42px}.sheet{padding:15px;border-radius:22px}.modal{padding:10px}.btn{width:100%}.btnRow{display:grid}.monthBox select,.monthBox input{width:100%}}
+    @media print{.tabs,.bottomNav,.quick,.sidePanel,.btnRow,header .monthBox{display:none!important}body{padding:0;background:white}.app{max-width:none}.card{box-shadow:none;break-inside:avoid}.view{display:block}.view:not(#dashboardView){display:none!important}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div class="logo">₱</div>
+        <div>
+          <h1 id="brandTitle">Sales & Expense Tracker</h1>
+          <div class="miniNote" id="brandSubtitle">Track sales, expenses, receivables, and bank balances.</div>
+        </div>
+      </div>
+      <div class="monthBox">
+        <select id="monthFilter" aria-label="Filter by month"></select>
+        <select id="businessFilter" aria-label="Filter by business"></select>
+      </div>
+    </header>
+
+    <nav class="tabs" id="topTabs">
+      <button class="tab active" data-view="dashboardView">Dashboard</button>
+      <button class="tab" data-view="salesView">Sales</button>
+      <button class="tab" data-view="expensesView">Expenses</button>
+      <button class="tab" data-view="banksView">Banks</button>
+      <button class="tab" data-view="receivablesView">Receivables</button>
+      <button class="tab" data-view="settingsView">Settings</button>
+    </nav>
+
+    <section class="view active" id="dashboardView">
+      <div class="split">
+        <aside class="sidePanel">
+          <h3 style="margin:0 0 12px">Filters</h3>
+          <div class="filterGroup">
+            <div>
+              <div class="filterLabel">Month</div>
+              <select id="sideMonthFilter"></select>
+            </div>
+            <div>
+              <div class="filterLabel">Business</div>
+              <select id="sideBusinessFilter"></select>
+            </div>
+            <div class="statLine"><span>Total Sales</span><b id="sideSales">₱0</b></div>
+            <div class="statLine"><span>Total Expenses</span><b id="sideExpenses">₱0</b></div>
+            <div class="statLine"><span>Net Profit</span><b id="sideNet">₱0</b></div>
+            <p class="miniNote">Tip: Use <b>+ Add Sales</b> and <b>+ Add Expense</b> sa phone. Auto-save ito sa browser using local storage.</p>
+          </div>
+        </aside>
+        <main>
+          <div class="grid">
+            <div class="card kpi"><small>Total Sales</small><strong id="kpiSales">₱0</strong><span>Selected month/business</span></div>
+            <div class="card kpi"><small>Total Expenses</small><strong id="kpiExpenses">₱0</strong><span>All recorded costs</span></div>
+            <div class="card kpi"><small>Net Profit</small><strong id="kpiNet">₱0</strong><span>Sales minus expenses</span></div>
+            <div class="card kpi"><small>Receivables</small><strong id="kpiReceivables">₱0</strong><span>Unpaid collectibles</span></div>
+          </div>
+
+          <div class="quick">
+            <button onclick="openModal('sales')"><b>+ Add Sales</b><span>Order / payment received</span></button>
+            <button onclick="openModal('expense')"><b>+ Add Expense</b><span>Materials, shipping, ads</span></button>
+            <button onclick="openModal('bank')"><b>+ Bank Movement</b><span>Deposit / transfer</span></button>
+            <button onclick="openModal('receivable')"><b>+ Receivable</b><span>Unpaid order / balance</span></button>
+          </div>
+
+          <div class="two">
+            <div class="card">
+              <h3 class="sectionTitle">Sales per Business</h3>
+              <div id="salesBars" class="bars"></div>
+            </div>
+            <div class="card">
+              <h3 class="sectionTitle">Expense Breakdown</h3>
+              <div id="expenseBars" class="bars"></div>
+            </div>
+          </div>
+
+          <div class="three" style="margin-top:12px">
+            <div class="card">
+              <h3 class="sectionTitle">Recent Activity</h3>
+              <div class="tableWrap"><table><thead><tr><th>Date</th><th>Type</th><th>Business</th><th class="right">Amount</th></tr></thead><tbody id="recentRows"></tbody></table></div>
+            </div>
+            <div class="card">
+              <h3 class="sectionTitle">Bank Balances</h3>
+              <div id="bankLines"></div>
+            </div>
+            <div class="card">
+              <h3 class="sectionTitle">For Allocation</h3>
+              <p class="sub">Sales minus recorded bank deposits.</p>
+              <div class="kpi" style="min-height:120px;border-radius:16px"><small>Unallocated Sales</small><strong id="unallocated">₱0</strong><span>Check kung saan napunta ang pera</span></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </section>
+
+    <section class="view" id="salesView">
+      <div class="card">
+        <div class="sheetHead"><h2>Sales Records</h2><button class="btn green" onclick="openModal('sales')">+ Add Sales</button></div>
+        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Item / Service</th><th>Payment</th><th>Bank</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="salesRows"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="view" id="expensesView">
+      <div class="card">
+        <div class="sheetHead"><h2>Expense Records</h2><button class="btn green" onclick="openModal('expense')">+ Add Expense</button></div>
+        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Category</th><th>Supplier</th><th>Paid From</th><th class="right">Amount</th><th></th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="view" id="banksView">
+      <div class="two">
+        <div class="card">
+          <div class="sheetHead"><h2>Bank / Wallet Balances</h2><button class="btn green" onclick="openModal('bank')">+ Bank Movement</button></div>
+          <div id="bankCards"></div>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0">Bank Transactions</h2>
+          <div class="tableWrap"><table><thead><tr><th>Date</th><th>Type</th><th>From</th><th>To</th><th class="right">Amount</th><th></th></tr></thead><tbody id="bankRows"></tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="receivablesView">
+      <div class="card">
+        <div class="sheetHead"><h2>Receivables / Collectibles</h2><button class="btn green" onclick="openModal('receivable')">+ Receivable</button></div>
+        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Due Date</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="receivableRows"></tbody></table></div>
+      </div>
+    </section>
+
+    <section class="view" id="settingsView">
+      <div class="two">
+        <div class="card">
+          <h2 style="margin-top:0">Customize Your Tracker</h2>
+          <p class="miniNote">Palitan ito bago i-offer sa client para sariling pangalan nila ang makikita sa dashboard.</p>
+          <div class="formGrid">
+            <div class="field full">
+              <label>Tracker / Business Display Name</label>
+              <input id="trackerNameInput" maxlength="60" placeholder="e.g. Bella's Online Shop">
+            </div>
+            <div class="field full">
+              <label>Subtitle / Description</label>
+              <textarea id="trackerSubtitleInput" maxlength="140" placeholder="e.g. Sales, expenses, and cash flow tracker"></textarea>
+            </div>
+          </div>
+          <div class="btnRow">
+            <button class="btn green" type="button" onclick="saveBrandSettings()">Save Display Name</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0">Business Names</h2>
+          <p class="miniNote">Add, rename, or remove the businesses shown in the sales and expense forms. You can add as many businesses as needed.</p>
+          <div class="field">
+            <label>Add New Business</label>
+            <div class="manageRow">
+              <input id="newBusinessInput" maxlength="60" placeholder="e.g. Bella's Cakes">
+              <button class="btn green" type="button" onclick="addBusiness()">Add</button>
+            </div>
+          </div>
+          <div id="businessSettingsList" class="manageList"></div>
+          <div class="btnRow">
+            <button class="btn secondary" type="button" onclick="saveBusinessNames()">Save Name Changes</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="two" style="margin-top:12px">
+        <div class="card">
+          <h2 style="margin-top:0">Data Backup</h2>
+          <p class="miniNote">Export ito bago magpalit ng phone/browser. Import mo ulit para bumalik ang records.</p>
+          <div class="btnRow">
+            <button class="btn blue" onclick="exportJSON()">Export Backup</button>
+            <button class="btn secondary" onclick="document.getElementById('importFile').click()">Import Backup</button>
+            <input class="hidden" type="file" id="importFile" accept=".json" onchange="importJSON(event)">
+            <button class="btn secondary" onclick="exportCSV('sales')">Export Sales CSV</button>
+            <button class="btn secondary" onclick="exportCSV('expenses')">Export Expenses CSV</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2 style="margin-top:0">Reset Data</h2>
+          <p class="miniNote">Magre-reset ito sa blank business tracker. Burado ang local records sa browser na ito.</p>
+          <div class="btnRow">
+            <button class="btn red" onclick="resetData()">Reset All Data</button>
+            <button class="btn secondary" onclick="window.print()">Print Dashboard</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h2 style="margin-top:0">Recommended Tracking</h2>
+        <div class="tableWrap"><table><thead><tr><th>Tracker</th><th>Purpose</th></tr></thead><tbody><tr><td>Monthly Target</td><td>Para makita kung ilang percent na ang naabot per business.</td></tr><tr><td>COGS / Materials</td><td>Paper, ink, packaging, props, at supplies.</td></tr><tr><td>Receivables</td><td>Mga unpaid orders or client balance.</td></tr><tr><td>Bank Allocation</td><td>Para alam kung nasa bank, cash, GCash, o Maya ang pera.</td></tr><tr><td>Ads Spend</td><td>Para makita kung sulit ang FB ads or boosting.</td></tr><tr><td>Tax / Savings Reserve</td><td>Automatic allocation para sa future payments.</td></tr></tbody></table></div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="bottomNav" id="bottomNav">
+    <button class="active" data-view="dashboardView"><span class="ico">📊</span>Home</button>
+    <button data-view="salesView"><span class="ico">💰</span>Sales</button>
+    <button data-view="expensesView"><span class="ico">🧾</span>Gastos</button>
+    <button data-view="banksView"><span class="ico">🏦</span>Banks</button>
+    <button data-view="receivablesView"><span class="ico">📌</span>Collect</button>
+    <button data-view="settingsView"><span class="ico">⚙️</span>Setup</button>
+  </nav>
+
+  <div class="modal" id="modal">
+    <div class="sheet">
+      <div class="sheetHead"><h2 id="modalTitle">Add Record</h2><button class="close" onclick="closeModal()">×</button></div>
+      <form id="entryForm"></form>
+    </div>
+  </div>
+  <div class="toast" id="toast">Saved!</div>
+
+  <script>
+    const KEY='erbSalesExpenseTracker_v1';
+    const DEFAULT_SETTINGS={
+      trackerName:'Sales & Expense Tracker',
+      subtitle:'Track sales, expenses, receivables, and bank balances.'
+    };
+    const pesos = n => '₱' + Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
+    const shortPesos = n => '₱' + Number(n||0).toLocaleString('en-PH',{maximumFractionDigits:0});
+    const today = () => new Date().toISOString().slice(0,10);
+    const monthKey = d => (d||today()).slice(0,7);
+    const uid = p => p + '-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,7);
+    const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[char]));
+
+    let data = loadData();
+    let filters = { month: monthKey(today()), business:'All' };
+
+    function seed(){
+      return {
+        settings:{...DEFAULT_SETTINGS},
+        businesses:['My Business'],
+        accounts:['Cash','GCash','Maya','Bank Account'],
+        sales:[],
+        expenses:[],
+        banks:[],
+        receivables:[]
+      };
+    }
+    function normalizeData(saved){
+      const base=seed();
+      if(!saved || typeof saved!=='object') return base;
+      return {
+        ...base,
+        ...saved,
+        settings:{...DEFAULT_SETTINGS,...(saved.settings||{})},
+        businesses:Array.isArray(saved.businesses)&&saved.businesses.length ? saved.businesses : base.businesses,
+        accounts:Array.isArray(saved.accounts)&&saved.accounts.length ? saved.accounts : base.accounts,
+        sales:Array.isArray(saved.sales) ? saved.sales : [],
+        expenses:Array.isArray(saved.expenses) ? saved.expenses : [],
+        banks:Array.isArray(saved.banks) ? saved.banks : [],
+        receivables:Array.isArray(saved.receivables) ? saved.receivables : []
+      };
+    }
+    function loadData(){
+      try{return normalizeData(JSON.parse(localStorage.getItem(KEY)))}catch(e){return seed()}
+    }
+    function save(){localStorage.setItem(KEY,JSON.stringify(data)); render();}
+
+    function byFilters(arr){return arr.filter(r=>(filters.month==='All'||monthKey(r.date)===filters.month)&&(filters.business==='All'||r.business===filters.business));}
+    function sum(arr, field='amount'){return arr.reduce((a,b)=>a+Number(b[field]||0),0)}
+    function groupSum(arr, key){return arr.reduce((o,r)=>{const k=r[key]||'Uncategorized';o[k]=(o[k]||0)+Number(r.amount||0);return o},{})}
+    function bankBalance(account){
+      let bal=0;
+      data.sales.forEach(s=>{ if(s.bank===account && s.status==='Paid') bal+=Number(s.amount||0); });
+      data.expenses.forEach(e=>{ if(e.paidFrom===account) bal-=Number(e.amount||0); });
+      data.banks.forEach(t=>{
+        const a=Number(t.amount||0);
+        if(t.type==='Deposit' && t.to===account) bal+=a;
+        if(t.type==='Withdrawal' && t.from===account) bal-=a;
+        if(t.type==='Transfer'){ if(t.from===account) bal-=a; if(t.to===account) bal+=a; }
+      });
+      return bal;
+    }
+
+    function renderFilters(){
+      const months = Array.from(new Set([...data.sales,...data.expenses,...data.banks,...data.receivables].map(x=>monthKey(x.date)))).sort().reverse();
+      if(!months.includes(monthKey(today()))) months.unshift(monthKey(today()));
+      const monthOptions = ['All',...months].map(m=>`<option value="${m}">${m==='All'?'All Months':m}</option>`).join('');
+      const bizOptions = ['All',...data.businesses].map(b=>`<option value="${b}">${b==='All'?'All Businesses':b}</option>`).join('');
+      ['monthFilter','sideMonthFilter'].forEach(id=>{const el=document.getElementById(id); el.innerHTML=monthOptions; el.value=filters.month;});
+      ['businessFilter','sideBusinessFilter'].forEach(id=>{const el=document.getElementById(id); el.innerHTML=bizOptions; el.value=filters.business;});
+    }
+
+    function render(){
+      renderBrand();
+      renderFilters();
+      const sales=byFilters(data.sales), expenses=byFilters(data.expenses), recs=byFilters(data.receivables).filter(r=>r.status!=='Paid');
+      const totalSales=sum(sales), totalExpenses=sum(expenses), net=totalSales-totalExpenses, rec=sum(recs);
+      ['kpiSales','sideSales'].forEach(id=>document.getElementById(id).textContent=pesos(totalSales));
+      ['kpiExpenses','sideExpenses'].forEach(id=>document.getElementById(id).textContent=pesos(totalExpenses));
+      ['kpiNet','sideNet'].forEach(id=>{const el=document.getElementById(id);el.textContent=pesos(net);el.className=net<0?'dangerText':'positive'});
+      document.getElementById('kpiReceivables').textContent=pesos(rec);
+      renderBars('salesBars',groupSum(sales,'business'));
+      renderBars('expenseBars',groupSum(expenses,'category'));
+      renderTables();
+      renderBanks(totalSales);
+      renderSettings();
+    }
+
+    function renderBrand(){
+      const settings={...DEFAULT_SETTINGS,...(data.settings||{})};
+      document.getElementById('brandTitle').textContent=settings.trackerName;
+      document.getElementById('brandSubtitle').textContent=settings.subtitle;
+      document.title=settings.trackerName + ' | Sales & Expense Tracker';
+    }
+
+    function renderSettings(){
+      const settings={...DEFAULT_SETTINGS,...(data.settings||{})};
+      const nameInput=document.getElementById('trackerNameInput');
+      const subtitleInput=document.getElementById('trackerSubtitleInput');
+      if(nameInput && document.activeElement!==nameInput) nameInput.value=settings.trackerName;
+      if(subtitleInput && document.activeElement!==subtitleInput) subtitleInput.value=settings.subtitle;
+      const list=document.getElementById('businessSettingsList');
+      if(!list) return;
+      list.innerHTML=data.businesses.map(name=>`<div class="manageRow"><input class="businessNameInput" data-original="${esc(name)}" value="${esc(name)}" maxlength="60" aria-label="Business name"><button class="btn red" type="button" data-name="${esc(name)}" onclick="removeBusiness(this.dataset.name)">Remove</button></div>`).join('') || '<div class="settingNote">Add at least one business to use the forms.</div>';
+    }
+
+    function saveBrandSettings(){
+      const trackerName=document.getElementById('trackerNameInput').value.trim() || DEFAULT_SETTINGS.trackerName;
+      const subtitle=document.getElementById('trackerSubtitleInput').value.trim() || DEFAULT_SETTINGS.subtitle;
+      data.settings={...DEFAULT_SETTINGS,...(data.settings||{}),trackerName,subtitle};
+      save();
+      toast('Display name saved!');
+    }
+
+    function addBusinessName(name){
+      const cleanName=String(name||'').trim();
+      if(!cleanName){toast('Enter a business name first.');return null;}
+      if(data.businesses.some(item=>item.toLowerCase()===cleanName.toLowerCase())){toast('Business name already exists.');return null;}
+      data.businesses.push(cleanName);
+      return cleanName;
+    }
+
+    function addBusiness(){
+      const input=document.getElementById('newBusinessInput');
+      const name=addBusinessName(input.value);
+      if(!name) return;
+      input.value='';
+      save();
+      toast('Business added!');
+    }
+
+    function businessSelectOptions(){
+      return opts(data.businesses) + '<option value="__add_new_business__">＋ Add another business…</option>';
+    }
+
+    function handleBusinessSelection(select){
+      const quickField=document.getElementById('quickBusinessField');
+      if(!quickField) return;
+      const isAdding=select.value==='__add_new_business__';
+      quickField.classList.toggle('hidden',!isAdding);
+      if(isAdding){
+        const input=document.getElementById('quickBusinessName');
+        if(input) setTimeout(()=>input.focus(),0);
+      }
+    }
+
+    function addBusinessFromModal(){
+      const input=document.getElementById('quickBusinessName');
+      const select=document.getElementById('recordBusiness');
+      if(!input || !select) return;
+      const name=addBusinessName(input.value);
+      if(!name) return;
+      save();
+      select.innerHTML=businessSelectOptions();
+      select.value=name;
+      input.value='';
+      document.getElementById('quickBusinessField').classList.add('hidden');
+      toast('Business added and selected!');
+    }
+
+    function saveBusinessNames(){
+      const inputs=[...document.querySelectorAll('.businessNameInput')];
+      const changes=[];
+      const updated=inputs.map(input=>{
+        const original=input.dataset.original;
+        const name=input.value.trim();
+        if(name && name!==original) changes.push({original,name});
+        return name;
+      }).filter(Boolean);
+      const unique=updated.filter((name,index,arr)=>arr.findIndex(item=>item.toLowerCase()===name.toLowerCase())===index);
+      if(!unique.length){toast('Keep at least one business name.');return;}
+      if(unique.length!==updated.length){alert('Business names must be unique.');return;}
+      changes.forEach(({original,name})=>{
+        data.sales.forEach(record=>{if(record.business===original) record.business=name;});
+        data.expenses.forEach(record=>{if(record.business===original) record.business=name;});
+        data.receivables.forEach(record=>{if(record.business===original) record.business=name;});
+        if(filters.business===original) filters.business=name;
+      });
+      data.businesses=unique;
+      save();
+      toast('Business names updated!');
+    }
+
+    function removeBusiness(name){
+      if(data.businesses.length===1){toast('Keep at least one business.');return;}
+      const hasRecords=[...data.sales,...data.expenses,...data.receivables].some(record=>record.business===name);
+      const message=hasRecords
+        ? `Remove "${name}" from the business choices? Existing records will remain visible under All Businesses.`
+        : `Remove "${name}" from the business choices?`;
+      if(!confirm(message)) return;
+      data.businesses=data.businesses.filter(item=>item!==name);
+      if(filters.business===name) filters.business='All';
+      save();
+      toast('Business removed.');
+    }
+
+    function renderBars(id,obj){
+      const el=document.getElementById(id); const entries=Object.entries(obj).sort((a,b)=>b[1]-a[1]); const max=Math.max(...entries.map(x=>x[1]),1);
+      el.innerHTML = entries.length ? entries.map(([k,v])=>`<div class="barRow"><span>${k}</span><div class="track"><div class="fill" style="width:${Math.max(3,(v/max)*100)}%"></div></div><span class="amount">${shortPesos(v)}</span></div>`).join('') : '<div class="empty">No data yet.</div>';
+    }
+
+    function renderTables(){
+      const saleRows=byFilters(data.sales).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.customer||'-'}</td><td>${r.item||'-'}</td><td>${r.payment||'-'}</td><td>${r.bank||'<span class="pill warn">Unallocated</span>'}</td><td><span class="pill">${r.status}</span></td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('sales','${r.id}')">Delete</button></td></tr>`).join('');
+      document.getElementById('salesRows').innerHTML=saleRows||'<tr><td colspan="9"><div class="empty">No sales yet.</div></td></tr>';
+
+      const expRows=byFilters(data.expenses).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.category}</td><td>${r.supplier||'-'}</td><td>${r.paidFrom||'-'}</td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('expenses','${r.id}')">Delete</button></td></tr>`).join('');
+      document.getElementById('expenseRows').innerHTML=expRows||'<tr><td colspan="7"><div class="empty">No expenses yet.</div></td></tr>';
+
+      const bankRows=data.banks.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.type}</td><td>${r.from||'-'}</td><td>${r.to||'-'}</td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('banks','${r.id}')">Delete</button></td></tr>`).join('');
+      document.getElementById('bankRows').innerHTML=bankRows||'<tr><td colspan="6"><div class="empty">No bank transactions yet.</div></td></tr>';
+
+      const recRows=data.receivables.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.customer||'-'}</td><td>${r.dueDate||'-'}</td><td><span class="pill ${r.status==='Overdue'?'danger':r.status==='Partial'?'warn':''}">${r.status}</span></td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="markPaid('${r.id}')">Paid</button> <button class="btn secondary" onclick="del('receivables','${r.id}')">Delete</button></td></tr>`).join('');
+      document.getElementById('receivableRows').innerHTML=recRows||'<tr><td colspan="7"><div class="empty">No receivables yet.</div></td></tr>';
+
+      const all=[...data.sales.map(x=>({...x,type:'Sales'})),...data.expenses.map(x=>({...x,type:'Expense',amount:-Number(x.amount||0)}))].filter(r=>(filters.month==='All'||monthKey(r.date)===filters.month)&&(filters.business==='All'||r.business===filters.business)).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
+      document.getElementById('recentRows').innerHTML=all.map(r=>`<tr><td>${r.date}</td><td>${r.type}</td><td>${r.business}</td><td class="right"><b class="${r.amount<0?'dangerText':'positive'}">${pesos(r.amount)}</b></td></tr>`).join('')||'<tr><td colspan="4"><div class="empty">No activity yet.</div></td></tr>';
+    }
+
+    function renderBanks(totalSales){
+      const cards=data.accounts.map(a=>`<div class="statLine"><span>${a}</span><b>${pesos(bankBalance(a))}</b></div>`).join('');
+      document.getElementById('bankLines').innerHTML=cards;
+      document.getElementById('bankCards').innerHTML=data.accounts.map(a=>`<div class="statLine"><span><b>${a}</b></span><b>${pesos(bankBalance(a))}</b></div>`).join('');
+      const deposits=sum(data.sales.filter(s=>s.bank&&s.status==='Paid')) + sum(data.banks.filter(t=>t.type==='Deposit'),'amount');
+      document.getElementById('unallocated').textContent=pesos(Math.max(0,sum(byFilters(data.sales))-sum(byFilters(data.sales).filter(s=>s.bank&&s.status==='Paid'))));
+    }
+
+    function opts(arr, includeBlank=false){return (includeBlank?'<option value="">Select...</option>':'')+arr.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('')}
+    function businessField(){
+      return `<div class="field"><label>Business</label><select name="business" id="recordBusiness" onchange="handleBusinessSelection(this)" required>${businessSelectOptions()}</select><span class="quickAddHint">Choose “＋ Add another business…” to add one instantly.</span></div><div class="field full hidden" id="quickBusinessField"><label>New Business Name</label><div class="manageRow"><input id="quickBusinessName" maxlength="60" placeholder="e.g. Bella's Cakes"><button class="btn green" type="button" onclick="addBusinessFromModal()">Add & Select</button></div></div>`;
+    }
+    function openModal(type){
+      const modal=document.getElementById('modal'), title=document.getElementById('modalTitle'), form=document.getElementById('entryForm');
+      const biz=businessField(), acc=opts(data.accounts,true);
+      if(type==='sales'){
+        title.textContent='Add Sales';
+        form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div>${biz}<div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>Customer</label><input name="customer" placeholder="Client name"></div><div class="field"><label>Item / Service</label><input name="item" placeholder="Product / package"></div><div class="field"><label>Payment Method</label><select name="payment"><option>Cash</option><option>Bank Transfer</option><option>GCash</option><option>Maya</option><option>Card</option><option>Cash/Bank</option></select></div><div class="field"><label>Bank Destination</label><select name="bank">${acc}</select></div><div class="field"><label>Status</label><select name="status"><option>Paid</option><option>Unpaid</option><option>Partial</option></select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Sales</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
+        form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.sales.push({id:uid('S'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Sales saved!');};
+      }
+      if(type==='expense'){
+        title.textContent='Add Expense';
+        form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div>${biz}<div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>Category</label><select name="category"><option>Materials</option><option>Printing</option><option>Packaging</option><option>Shipping</option><option>Ads / Boosting</option><option>Labor</option><option>Food / Transpo</option><option>Equipment</option><option>Other</option></select></div><div class="field"><label>Supplier</label><input name="supplier" placeholder="Supplier / store"></div><div class="field"><label>Paid From</label><select name="paidFrom">${acc}</select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Expense</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
+        form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.expenses.push({id:uid('E'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Expense saved!');};
+      }
+      if(type==='bank'){
+        title.textContent='Bank Movement';
+        form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div><div class="field"><label>Type</label><select name="type"><option>Deposit</option><option>Withdrawal</option><option>Transfer</option></select></div><div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>From</label><select name="from">${acc}</select></div><div class="field"><label>To</label><select name="to">${acc}</select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Transaction</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
+        form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.banks.push({id:uid('B'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Bank transaction saved!');};
+      }
+      if(type==='receivable'){
+        title.textContent='Add Receivable';
+        form.innerHTML=`<div class="formGrid"><div class="field"><label>Date</label><input name="date" type="date" value="${today()}" required></div>${biz}<div class="field"><label>Amount</label><input name="amount" type="number" step="0.01" required placeholder="0.00"></div><div class="field"><label>Customer</label><input name="customer" placeholder="Client name"></div><div class="field"><label>Due Date</label><input name="dueDate" type="date"></div><div class="field"><label>Status</label><select name="status"><option>Unpaid</option><option>Partial</option><option>Overdue</option><option>Paid</option></select></div><div class="field full"><label>Notes</label><textarea name="notes" placeholder="Optional notes"></textarea></div></div><div class="btnRow"><button class="btn green">Save Receivable</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>`;
+        form.onsubmit=e=>{e.preventDefault(); const f=Object.fromEntries(new FormData(form)); data.receivables.push({id:uid('R'),...f,amount:Number(f.amount||0)}); save(); closeModal(); toast('Receivable saved!');};
+      }
+      modal.classList.add('show');
+    }
+    function closeModal(){document.getElementById('modal').classList.remove('show')}
+    function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+    function del(bucket,id){ if(confirm('Delete this record?')){data[bucket]=data[bucket].filter(x=>x.id!==id);save();toast('Deleted');}}
+    function markPaid(id){ const r=data.receivables.find(x=>x.id===id); if(r){r.status='Paid';save();toast('Marked paid');}}
+
+    function switchView(id){
+      document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+      document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+    ['monthFilter','sideMonthFilter'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{filters.month=e.target.value;render()}));
+    ['businessFilter','sideBusinessFilter'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{filters.business=e.target.value;render()}));
+
+    function download(filename, text, type='text/plain'){
+      const blob=new Blob([text],{type}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function exportJSON(){download('sales-expense-tracker-backup.json',JSON.stringify(data,null,2),'application/json');}
+    function importJSON(e){const file=e.target.files[0]; if(!file)return; const reader=new FileReader(); reader.onload=()=>{try{data=JSON.parse(reader.result);save();toast('Backup imported!')}catch(err){alert('Invalid backup file.')}}; reader.readAsText(file);}
+    function exportCSV(bucket){
+      const arr=data[bucket]; if(!arr.length){toast('No data to export');return}
+      const cols=Array.from(new Set(arr.flatMap(o=>Object.keys(o))));
+      const csv=[cols.join(','),...arr.map(o=>cols.map(c=>'"'+String(o[c]??'').replaceAll('"','""')+'"').join(','))].join('\n');
+      download(bucket+'.csv',csv,'text/csv');
+    }
+    function resetData(){ if(confirm('Reset all local records and restore a blank tracker?')){data=seed();filters={month:monthKey(today()),business:'All'};save();toast('Blank tracker ready!');}}
+
+    render();
+  </script>
+</body>
+</html>
