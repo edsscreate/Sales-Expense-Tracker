@@ -52,6 +52,47 @@
     .split{display:grid;grid-template-columns:260px 1fr;gap:12px}.sidePanel{background:#bddfc8;border-radius:var(--radius);padding:14px;border:1px solid #a8d1b5}.filterGroup{display:grid;gap:12px}.filterLabel{font-weight:900;margin-top:8px}.statLine{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.55)}.statLine:last-child{border-bottom:0}.miniNote{font-size:12px;color:var(--muted);line-height:1.5}.hidden{display:none!important}.dangerText{color:var(--danger);font-weight:900}.positive{color:#25814b;font-weight:900}.manageList{display:grid;gap:9px;margin-top:12px;max-height:270px;overflow:auto;padding-right:3px}.manageRow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.manageRow .btn{padding:10px 12px}.quickAddHint{display:block;margin-top:7px;font-size:11px;color:var(--muted);line-height:1.4}.settingNote{background:#eef8f1;border:1px solid var(--line);border-radius:13px;padding:11px 12px;font-size:12px;color:#43604e;line-height:1.45}
     @media(max-width:900px){.split{grid-template-columns:1fr}.sidePanel{order:2}.grid{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.formGrid{grid-template-columns:1fr 1fr}.quick{grid-template-columns:1fr 1fr}.bottomNav{display:grid}.tabs{display:none}header{position:relative}.monthBox{width:100%;justify-content:flex-start}.app{padding:14px}}
     @media(max-width:560px){body{padding-bottom:96px}.grid,.quick,.formGrid{grid-template-columns:1fr}.barRow{grid-template-columns:88px 1fr 76px}.card{padding:14px}.kpi{min-height:94px}th,td{padding:9px 8px;font-size:12px}.brand{align-items:flex-start}.logo{width:42px;height:42px}.sheet{padding:15px;border-radius:22px}.modal{padding:10px}.btn{width:100%}.btnRow{display:grid}.monthBox select,.monthBox input,.monthBox .monthAllBtn{width:100%}}
+    /* Mobile layout refinements */
+    .mobileRecordList{display:none}
+    @media(max-width:900px){
+      header{flex-direction:column;align-items:stretch;gap:14px}
+      .brand{width:100%}
+      .monthBox{width:100%;justify-content:stretch}
+    }
+    @media(max-width:560px){
+      html,body{overflow-x:hidden}
+      .app{padding:12px}
+      header{gap:12px;padding:4px 0 10px;margin-bottom:12px}
+      .brand{align-items:center;gap:10px}
+      .brand>div:last-child{min-width:0}
+      .logo{flex:0 0 42px}
+      h1{font-size:24px;line-height:1.04;letter-spacing:.1px;text-wrap:balance}
+      #brandSubtitle{font-size:12px;margin-top:5px}
+      .monthBox{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(255,255,255,.62);border:1px solid var(--line);border-radius:18px;padding:10px}
+      .dateRangeInputs{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+      .dateRangeInputs label{display:grid;gap:5px;padding:8px 10px;background:white;border:1px solid var(--line);border-radius:13px;font-size:11px;line-height:1.1}
+      .dateRangeInputs input{min-width:0!important;width:100%;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;font-size:13px;min-height:22px}
+      .monthBox .monthAllBtn{width:100%;min-height:46px;padding:10px 8px;font-size:13px}
+      .monthBox #businessFilter{grid-column:1/-1;min-height:46px;padding:10px 12px}
+      .sheetHead{align-items:stretch;flex-direction:column;gap:10px}
+      .sheetHead h2{font-size:21px;line-height:1.1}
+      .sheetHead .btn{width:100%;min-height:48px}
+      .recordTableWrap{display:none}
+      .mobileRecordList{display:grid;gap:10px}
+      .mobileRecord{background:white;border:1px solid var(--line);border-radius:15px;padding:12px;box-shadow:0 5px 13px rgba(39,78,52,.05)}
+      .mobileRecordTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+      .mobileRecordTitle{font-weight:900;line-height:1.25;word-break:break-word}
+      .mobileRecordAmount{font-weight:900;white-space:nowrap;font-size:16px}
+      .mobileRecordMeta{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.35}
+      .mobileRecordInfo{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+      .mobileRecordInfo span{background:#eef8f1;border-radius:999px;padding:5px 8px;font-size:11px;color:#3d6049;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .mobileRecordFooter{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+      .mobileRecordFooter .btn{width:auto;padding:8px 11px;font-size:12px}
+      .mobileRecord.emptyCard{padding:0;border:0;box-shadow:none;background:transparent}
+      .bottomNav{width:min(760px,calc(100vw - 16px));padding:7px 5px;gap:2px}
+      .bottomNav button{padding:8px 2px;font-size:9px;min-width:0}
+      .bottomNav .ico{font-size:17px}
+    }
     @media print{.tabs,.bottomNav,.quick,.sidePanel,.btnRow,header .monthBox{display:none!important}body{padding:0;background:white}.app{max-width:none}.card{box-shadow:none;break-inside:avoid}.view{display:block}.view:not(#dashboardView){display:none!important}}
   </style>
 </head>
@@ -174,14 +215,14 @@
     <section class="view" id="salesView">
       <div class="card">
         <div class="sheetHead"><h2>Sales Records</h2><button class="btn green" onclick="openModal('sales')">+ Add Sales</button></div>
-        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Item / Service</th><th>Payment</th><th>Bank</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="salesRows"></tbody></table></div>
+        <div class="tableWrap recordTableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Item / Service</th><th>Payment</th><th>Bank</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="salesRows"></tbody></table></div><div class="mobileRecordList" id="salesMobileRows"></div>
       </div>
     </section>
 
     <section class="view" id="expensesView">
       <div class="card">
         <div class="sheetHead"><h2>Expense Records</h2><button class="btn green" onclick="openModal('expense')">+ Add Expense</button></div>
-        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Category</th><th>Supplier</th><th>Paid From</th><th class="right">Amount</th><th></th></tr></thead><tbody id="expenseRows"></tbody></table></div>
+        <div class="tableWrap recordTableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Category</th><th>Supplier</th><th>Paid From</th><th class="right">Amount</th><th></th></tr></thead><tbody id="expenseRows"></tbody></table></div><div class="mobileRecordList" id="expenseMobileRows"></div>
       </div>
     </section>
 
@@ -193,7 +234,7 @@
         </div>
         <div class="card">
           <h2 style="margin-top:0">Bank Transactions</h2>
-          <div class="tableWrap"><table><thead><tr><th>Date</th><th>Type</th><th>From</th><th>To</th><th class="right">Amount</th><th></th></tr></thead><tbody id="bankRows"></tbody></table></div>
+          <div class="tableWrap recordTableWrap"><table><thead><tr><th>Date</th><th>Type</th><th>From</th><th>To</th><th class="right">Amount</th><th></th></tr></thead><tbody id="bankRows"></tbody></table></div><div class="mobileRecordList" id="bankMobileRows"></div>
         </div>
       </div>
     </section>
@@ -201,7 +242,7 @@
     <section class="view" id="receivablesView">
       <div class="card">
         <div class="sheetHead"><h2>Receivables / Collectibles</h2><button class="btn green" onclick="openModal('receivable')">+ Receivable</button></div>
-        <div class="tableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Due Date</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="receivableRows"></tbody></table></div>
+        <div class="tableWrap recordTableWrap"><table><thead><tr><th>Date</th><th>Business</th><th>Customer</th><th>Due Date</th><th>Status</th><th class="right">Amount</th><th></th></tr></thead><tbody id="receivableRows"></tbody></table></div><div class="mobileRecordList" id="receivableMobileRows"></div>
       </div>
     </section>
 
@@ -601,18 +642,32 @@
       el.innerHTML = entries.length ? entries.map(([k,v])=>`<div class="barRow"><span>${k}</span><div class="track"><div class="fill" style="width:${Math.max(3,(v/max)*100)}%"></div></div><span class="amount">${shortPesos(v)}</span></div>`).join('') : '<div class="empty">No data yet.</div>';
     }
 
+    function recordCard({title,amount,date,meta='',tags=[],amountClass='',footer=''}){
+      const safeTags=tags.filter(Boolean).map(tag=>`<span>${tag}</span>`).join('');
+      return `<article class="mobileRecord"><div class="mobileRecordTop"><div><div class="mobileRecordTitle">${title}</div><div class="mobileRecordMeta">${date}${meta?` · ${meta}`:''}</div></div><div class="mobileRecordAmount ${amountClass}">${amount}</div></div>${safeTags?`<div class="mobileRecordInfo">${safeTags}</div>`:''}<div class="mobileRecordFooter">${footer}</div></article>`;
+    }
+    function emptyMobileCard(message){return `<div class="mobileRecord emptyCard"><div class="empty">${message}</div></div>`;}
+
     function renderTables(){
       const saleRows=byFilters(data.sales).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.customer||'-'}</td><td>${r.item||'-'}</td><td>${r.payment||'-'}</td><td>${r.bank||'<span class="pill warn">Unallocated</span>'}</td><td><span class="pill">${r.status}</span></td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('sales','${r.id}')">Delete</button></td></tr>`).join('');
       document.getElementById('salesRows').innerHTML=saleRows||'<tr><td colspan="9"><div class="empty">No sales yet.</div></td></tr>';
+      const salesMobile=byFilters(data.sales).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.item||'Sales record'),amount:pesos(r.amount),date:esc(r.date),meta:esc(r.business||'-'),tags:[r.customer?`Customer: ${esc(r.customer)}`:'',r.payment?esc(r.payment):'',r.bank?`To: ${esc(r.bank)}`:'',r.status?esc(r.status):''],amountClass:'positive',footer:`<span class="pill">${esc(r.status||'Paid')}</span><button class="btn secondary" onclick="del('sales','${r.id}')">Delete</button>`})).join('');
+      document.getElementById('salesMobileRows').innerHTML=salesMobile||emptyMobileCard('No sales yet.');
 
       const expRows=byFilters(data.expenses).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.category}</td><td>${r.supplier||'-'}</td><td>${r.paidFrom||'-'}</td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('expenses','${r.id}')">Delete</button></td></tr>`).join('');
       document.getElementById('expenseRows').innerHTML=expRows||'<tr><td colspan="7"><div class="empty">No expenses yet.</div></td></tr>';
+      const expensesMobile=byFilters(data.expenses).sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.category||'Expense'),amount:'-'+pesos(r.amount),date:esc(r.date),meta:esc(r.business||'-'),tags:[r.supplier?`Supplier: ${esc(r.supplier)}`:'',r.paidFrom?`From: ${esc(r.paidFrom)}`:''],amountClass:'dangerText',footer:`<span></span><button class="btn secondary" onclick="del('expenses','${r.id}')">Delete</button>`})).join('');
+      document.getElementById('expenseMobileRows').innerHTML=expensesMobile||emptyMobileCard('No expenses yet.');
 
       const bankRows=data.banks.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.type}</td><td>${r.from||'-'}</td><td>${r.to||'-'}</td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="del('banks','${r.id}')">Delete</button></td></tr>`).join('');
       document.getElementById('bankRows').innerHTML=bankRows||'<tr><td colspan="6"><div class="empty">No bank transactions yet.</div></td></tr>';
+      const banksMobile=data.banks.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.type||'Bank movement'),amount:pesos(r.amount),date:esc(r.date),meta:[r.from?`From ${esc(r.from)}`:'',r.to?`To ${esc(r.to)}`:''].filter(Boolean).join(' · '),tags:[],footer:`<span></span><button class="btn secondary" onclick="del('banks','${r.id}')">Delete</button>`})).join('');
+      document.getElementById('bankMobileRows').innerHTML=banksMobile||emptyMobileCard('No bank transactions yet.');
 
       const recRows=data.receivables.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>`<tr><td>${r.date}</td><td>${r.business}</td><td>${r.customer||'-'}</td><td>${r.dueDate||'-'}</td><td><span class="pill ${r.status==='Overdue'?'danger':r.status==='Partial'?'warn':''}">${r.status}</span></td><td class="right"><b>${pesos(r.amount)}</b></td><td><button class="btn secondary" onclick="markPaid('${r.id}')">Paid</button> <button class="btn secondary" onclick="del('receivables','${r.id}')">Delete</button></td></tr>`).join('');
       document.getElementById('receivableRows').innerHTML=recRows||'<tr><td colspan="7"><div class="empty">No receivables yet.</div></td></tr>';
+      const receivablesMobile=data.receivables.sort((a,b)=>b.date.localeCompare(a.date)).map(r=>recordCard({title:esc(r.customer||'Receivable'),amount:pesos(r.amount),date:esc(r.date),meta:esc(r.business||'-'),tags:[r.dueDate?`Due: ${esc(r.dueDate)}`:'',r.status?esc(r.status):''],amountClass:r.status==='Overdue'?'dangerText':'',footer:`<button class="btn secondary" onclick="markPaid('${r.id}')">Mark paid</button><button class="btn secondary" onclick="del('receivables','${r.id}')">Delete</button>`})).join('');
+      document.getElementById('receivableMobileRows').innerHTML=receivablesMobile||emptyMobileCard('No receivables yet.');
 
       const all=byFilters([...data.sales.map(x=>({...x,type:'Sales'})),...data.expenses.map(x=>({...x,type:'Expense',amount:-Number(x.amount||0)}))]).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
       document.getElementById('recentRows').innerHTML=all.map(r=>`<tr><td>${r.date}</td><td>${r.type}</td><td>${r.business}</td><td class="right"><b class="${r.amount<0?'dangerText':'positive'}">${pesos(r.amount)}</b></td></tr>`).join('')||'<tr><td colspan="4"><div class="empty">No activity yet.</div></td></tr>';
